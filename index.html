@@ -1,29 +1,75 @@
 <!-- KARUSELIS -->
 <div class="carousel">
   <div class="slides">
-    <div class="slide">
-      <img src="/ARTAS/street1.jpg" alt="Street 1">
-      <div class="caption">
-        <h2 class="delay-0">Street Composition</h2>
-        <p class="fade-delay-0">Noise transformed into light and lines.</p>
-      </div>
-    </div>
-    <div class="slide">
-      <img src="/ARTAS/street2.jpg" alt="Street 2">
-      <div class="caption">
-        <h2 class="delay-1">Silence between contrasts</h2>
-        <p class="fade-delay-1">Light cuts through darkness like a thought into the unknown.</p>
-      </div>
-    </div>
-    <div class="slide">
-      <img src="/ARTAS/city-seagulls.jpg" alt="City Seagulls">
-      <div class="caption">
-        <h2 class="delay-2">City Seagulls</h2>
-        <p class="fade-delay-2">Seagulls float like echoes of emotion above the city.</p>
-      </div>
-    </div>
+    <img src="/ARTAS/street1.jpg" class="active">
+    <img src="/ARTAS/street2.jpg">
+    <img src="/ARTAS/city-seagulls.jpg">
   </div>
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
 </div>
+
+<style>
+.carousel {
+  position: relative;
+  max-width: 800px;
+  margin: auto;
+  overflow: hidden;
+}
+
+.slides img {
+  width: 100%;
+  display: none;
+}
+
+.slides img.active {
+  display: block;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+</style>
+
+<script>
+let slides = document.querySelectorAll('.slides img');
+let current = 0;
+
+function showSlide(index) {
+  slides.forEach((img,i) => img.classList.remove('active'));
+  slides[index].classList.add('active');
+}
+
+document.querySelector('.next').addEventListener('click', () => {
+  current = (current + 1) % slides.length;
+  showSlide(current);
+});
+
+document.querySelector('.prev').addEventListener('click', () => {
+  current = (current - 1 + slides.length) % slides.length;
+  showSlide(current);
+});
+
+// Automātiska slaidu maiņa ik pēc 3 sekundēm
+setInterval(() => {
+  current = (current + 1) % slides.length;
+  showSlide(current);
+}, 3000);
+
+// Sākuma bilde
+showSlide(current);
+</script>
+
 
 
 
